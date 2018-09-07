@@ -8,7 +8,6 @@ for line in input_file:
     start_index = line.find('{*}')
 
     if start_index == -1:
-        pass
         output_file.write(line)
     else:
         change = True
