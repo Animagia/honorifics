@@ -16,7 +16,8 @@ class TextSwapperInMark(object):
         s_end_mark = text.find(self.end_mark, e_middle_mark)
         e_end_mark = s_end_mark + len(self.end_mark)
 
-        swapped = self.begin_mark + text[e_middle_mark:s_end_mark] + self.middle_mark + text[e_begin_mark:s_middle_mark] + self.end_mark
+        swapped = self.begin_mark + text[e_middle_mark:s_end_mark] + self.middle_mark + \
+                  text[e_begin_mark:s_middle_mark] + self.end_mark
 
         return swapped, e_end_mark
 
