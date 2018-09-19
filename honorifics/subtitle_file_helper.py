@@ -22,12 +22,12 @@ class AssFileHelper(object):
         for index, line in enumerate(lines):
             match_object = prog.match(line)
             if match_object:
-                result[match_object.group(0)[1:-1]] = index + 1
+                result[match_object.group(0)[1:-1]] = index
 
         return result
 
     def __get_dialogue_format(self, lines: List[str]) -> Tuple[str]:
-        pos_format = self.sections['Events']
+        pos_format = self.sections['Events'] + 1
 
         return tuple(lines[pos_format][len('Format:'):].replace(' ', '').rstrip().split(','))
 
