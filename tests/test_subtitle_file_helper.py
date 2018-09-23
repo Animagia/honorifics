@@ -1,10 +1,10 @@
 import unittest
 from typing import List
 
-from honorifics.subtitle_file_helper import AssFileHelper
+from honorifics.subtitle_file_helper import SubStationFileHelper
 
 
-class TestAssFileHelper(unittest.TestCase):
+class TestSubStationFileHelper(unittest.TestCase):
     def test_variables(self):
         data: List[str] = [
             '',
@@ -14,7 +14,8 @@ class TestAssFileHelper(unittest.TestCase):
             'Dialogue: 0:00:00.0, Test'
         ]
 
-        helper = AssFileHelper(data)
+        helper = SubStationFileHelper(data)
         self.assertEqual({'Events': 1}, helper.sections)
-        self.assertEqual(('Time', 'Text'), helper.dialogue_format)
+        self.assertEqual(('Time', 'Text'), helper.event_format)
+        self.assertEqual(2, helper.pos_event_format)
         self.assertEqual(4, helper.pos_start_dialogue)
