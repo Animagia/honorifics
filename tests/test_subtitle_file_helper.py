@@ -1,12 +1,11 @@
 import unittest
-from typing import List
 
 from honorifics.subtitle_file_helper import SubStationFileHelper
 
 
 class TestSubStationFileHelper(unittest.TestCase):
     def test_variables(self):
-        data: List[str] = [
+        data = [
             '',
             '[Events]',
             'Format: Time, Text',

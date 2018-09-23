@@ -6,7 +6,7 @@ from .time_utils import change_time
 
 
 class EventDialogueTiming(object):
-    dialogue_mark: str = 'Dialogue: '
+    dialogue_mark = 'Dialogue: '
 
     def __init__(self, event_format: Tuple[str]):
         self.format = event_format
