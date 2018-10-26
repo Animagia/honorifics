@@ -42,25 +42,29 @@ def main(arguments):
     if len(arguments.timestamp) > len(arguments.duration):
         diff = len(arguments.timestamp) - len(arguments.duration)
         arguments.duration.extend([10]*diff)
-    command = "ffmpeg "
-    command += "-i " + arguments.input_video
-    command += " -filter_complex "
+    first_pass = "ffmpeg "
+    first_pass += "-i " + arguments.input_video
+    filter_complex = " -filter_complex "
     start, last_part = start_of_video(arguments.timestamp[0])
-    command += start
+    filter_complex += start
     for i in range(len(arguments.timestamp)-1):
         negation, last_part = negation_part(arguments.timestamp[i], arguments.duration[i], last_part, i)
-        command += negation
+        filter_complex += negation
         normal_timestamp = arguments.timestamp[i] + arguments.duration[i]
         normal, last_part = normal_part(normal_timestamp, arguments.timestamp[i+1] - normal_timestamp, last_part, i)
-        command += normal
+        filter_complex += normal
     last_index = len(arguments.timestamp) - 1
     last_negation, last_part = negation_part(arguments.timestamp[last_index], arguments.duration[last_index], last_part, last_index)
-    command += last_negation
+    filter_complex += last_negation
     end = end_of_video(arguments.timestamp[last_index] + arguments.duration[last_index], last_part)
-    command += end
-    command += "-map [out1] "
-    command += "-c:v libvpx-vp9 -crf 25 -b:v 2000k -pix_fmt yuv420p -map 0:1 -c:a copy -map 0:2 " + arguments.output
-    os.system(command)
+    filter_complex += end
+    filter_complex += "-map [out1] "
+    first_pass += filter_complex
+    first_pass += "-c:v libvpx-vp9 -crf 21 -b:v 2000k -pix_fmt yuv420p -pass 1 -speed 4 -map 0:1 -c:a copy -map 0:2 -f matroska /dev/null"
+    second_pass = " && ffmpeg -i "
+    second_pass += arguments.input_video + filter_complex
+    second_pass += " -c:v libvpx-vp9 -crf 21 -b:v 2000k -pix_fmt yuv420p -pass 2 -speed 1 -map 0:1 -c:a copy -map 0:2 " + arguments.output
+    os.system(first_pass + second_pass)
 
 
 if __name__ == '__main__':
