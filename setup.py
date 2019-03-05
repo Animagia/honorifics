@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="honorifics-tloc",
-    version="0.0.1",
+    version="0.0.2",
     author="Animagia.pl",
     author_email="animagia@animagia.pl",
     description="Swaps terms in ass subtitles, good for Japanese honorifics.",
@@ -20,7 +20,7 @@ setuptools.setup(
     ],
     entry_points={
         'console_scripts': [
-            'honorifics = honorifics.honorifics:main_func',
+            'honorifics = honorifics.honorifics:swapInputLines',
         ]
     }
 )

@@ -6,3 +6,8 @@ venv**/
 
 # IDE
 .idea
+
+# pip build
+build/
+dist/
+honorifics_tloc.egg-info/
