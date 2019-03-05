@@ -18,4 +18,9 @@ setuptools.setup(
         "License :: OSI Approved :: BSD License",
         "Operating System :: OS Independent",
     ],
+    entry_points={
+        'console_scripts': [
+            'honorifics = honorifics.honorifics:main_func',
+        ]
+    }
 )
